@@ -3,8 +3,8 @@
 
 import React, { useState, useEffect, useRef, MouseEvent } from 'react';
 import { Button } from '@/components/ui/button';
-import { Loader2 } from 'lucide-react';
-import { generateAffirmation } from '@/ai/flows/personalized-affirmation';
+// import { Loader2 } from 'lucide-react'; // Removed Loader2
+// import { generateAffirmation } from '@/ai/flows/personalized-affirmation'; // Removed generateAffirmation
 import FloatingHearts from '@/components/floating-hearts';
 
 const yesButtonTexts = ["Yes 💖", "Really? 🥰", "You sure? 😍", "Go on... 😘", "Absolutely! 🎉"];
@@ -15,9 +15,7 @@ export default function LoveDodgerPage() {
   const [isYesClicked, setIsYesClicked] = useState(false);
   const [noButtonPosition, setNoButtonPosition] = useState<{ top: string; left: string } | null>(null);
   const [noButtonIsDodging, setNoButtonIsDodging] = useState(false);
-  const [affirmation, setAffirmation] = useState<string | null>(null);
-  const [isLoadingAffirmation, setIsLoadingAffirmation] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  // Removed affirmation, isLoadingAffirmation, and error states
   
   const [currentYesTextIndex, setCurrentYesTextIndex] = useState(0);
   const [currentNoTextIndex, setCurrentNoTextIndex] = useState(0);
@@ -59,23 +57,10 @@ export default function LoveDodgerPage() {
     setCurrentYesTextIndex((prevIndex) => (prevIndex + 1) % yesButtonTexts.length);
   };
 
-  const handleYesButtonClick = async () => {
-    // Optionally set a specific "Yes" text if needed before hiding, though it disappears quickly.
-    // setCurrentYesTextIndex(yesButtonTexts.length - 1); 
+  const handleYesButtonClick = () => { // No longer async
     setShowInitialElements(false);
     setIsYesClicked(true);
-    setIsLoadingAffirmation(true);
-    setError(null);
-    try {
-      const result = await generateAffirmation({ userName: "My Dearest" });
-      setAffirmation(result.affirmationMessage);
-    } catch (e) {
-      console.error("Failed to generate affirmation:", e);
-      setError("My heart's aflutter and missed a beat with the message! But know this: I adore you! ❤️");
-      setAffirmation(null);
-    } finally {
-      setIsLoadingAffirmation(false);
-    }
+    // Removed affirmation generation logic
   };
   
   const noButtonStyle: React.CSSProperties = noButtonIsDodging && noButtonPosition
@@ -127,25 +112,10 @@ export default function LoveDodgerPage() {
 
       {isYesClicked && (
         <div className="mt-10 p-6 bg-card/90 backdrop-blur-sm rounded-xl shadow-2xl max-w-md z-10">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 font-playful text-accent">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 font-playful text-accent animate-bounce"> {/* Added animate-bounce */}
             🎉 {yesButtonTexts[yesButtonTexts.length -1]} Yaaay!!! ✨
           </h2>
-          {isLoadingAffirmation && (
-            <div className="flex flex-col items-center text-lg text-foreground">
-              <Loader2 className="h-12 w-12 animate-spin mb-4 text-primary" />
-              <p className="font-playful">Crafting the perfect words for you...</p>
-            </div>
-          )}
-          {affirmation && !isLoadingAffirmation && (
-            <p className="text-xl md:text-2xl text-foreground leading-relaxed font-playful whitespace-pre-wrap">
-              {affirmation}
-            </p>
-          )}
-          {error && !isLoadingAffirmation && (
-             <p className="text-xl md:text-2xl text-destructive-foreground bg-destructive p-4 rounded-md leading-relaxed font-playful">
-              {error}
-            </p>
-          )}
+          {/* Removed loading, affirmation, and error display sections */}
         </div>
       )}
        <footer className="absolute bottom-4 text-center w-full text-xs text-muted-foreground/80 z-10 font-playful">
@@ -154,4 +124,3 @@ export default function LoveDodgerPage() {
     </div>
   );
 }
-
