@@ -5,6 +5,7 @@ import React, { useState, useEffect, useRef, MouseEvent } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import FloatingHearts from '@/components/floating-hearts';
+import { generateAffirmation } from '@/ai/flows/personalized-affirmation';
 
 const yesButtonTexts = ["Yes 💖", "Really? 🥰", "You sure? 😍", "Go on... 😘", "Absolutely! 🎉"];
 const noButtonTexts = [
@@ -36,6 +37,11 @@ export default function LoveDodgerPage() {
   const [currentYesTextIndex, setCurrentYesTextIndex] = useState(0);
   const [currentNoTextIndex, setCurrentNoTextIndex] = useState(0);
 
+  const [affirmation, setAffirmation] = useState<string | null>(null);
+  const [isLoadingAffirmation, setIsLoadingAffirmation] = useState(false);
+  const [affirmationError, setAffirmationError] = useState<string | null>(null);
+
+
   const noButtonRef = useRef<HTMLButtonElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -43,9 +49,22 @@ export default function LoveDodgerPage() {
   useEffect(() => {
     if (isYesClicked) {
       document.body.classList.add('celebration-bg');
+      setIsLoadingAffirmation(true);
+      setAffirmationError(null);
+      generateAffirmation({ userName: 'Khushi' })
+        .then(response => {
+          setAffirmation(response.affirmationMessage);
+        })
+        .catch(error => {
+          console.error("Error generating affirmation:", error);
+          setAffirmationError("Couldn't get a special message, but my love is clear! ❤️");
+        })
+        .finally(() => {
+          setIsLoadingAffirmation(false);
+        });
+      
       if (audioRef.current) {
         // Optional: You could change the music or stop it here
-        // For now, we'll let it continue playing
       }
     }
     return () => {
@@ -53,13 +72,10 @@ export default function LoveDodgerPage() {
     };
   }, [isYesClicked]);
 
-  // Attempt to play audio after a user interaction (e.g. component mount in a client component)
-  // Browsers might block autoplay without prior user interaction on the page.
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.play().catch(error => {
         console.log("Audio autoplay was prevented:", error);
-        // You might want to show a play button if autoplay is prevented.
       });
     }
   }, []);
@@ -108,7 +124,7 @@ export default function LoveDodgerPage() {
 
   return (
     <div ref={containerRef} className="flex flex-col items-center justify-center min-h-screen p-4 text-center relative overflow-hidden">
-      <audio ref={audioRef} src="/music/your-song.mp3" loop controls className="absolute top-4 left-4 z-50 opacity-50 hover:opacity-100 transition-opacity"/>
+      <audio ref={audioRef} src="/music/perfect-ed-sheeran.mp3" loop autoPlay className="absolute top-4 left-4 z-50 opacity-50 hover:opacity-100 transition-opacity"/>
       
       {isYesClicked && <FloatingHearts />}
 
@@ -158,6 +174,15 @@ export default function LoveDodgerPage() {
               className="rounded-lg shadow-lg"
             />
           </div>
+          {isLoadingAffirmation && (
+            <p className="mt-4 text-lg font-playful text-muted-foreground">💖 Getting a special message for you... ✨</p>
+          )}
+          {affirmationError && (
+             <p className="mt-4 text-lg font-playful text-destructive">{affirmationError}</p>
+          )}
+          {affirmation && !isLoadingAffirmation && !affirmationError && (
+            <p className="mt-4 text-lg font-playful text-foreground leading-relaxed">{affirmation}</p>
+          )}
         </div>
       )}
        <footer className="absolute bottom-4 text-center w-full text-xs text-muted-foreground/80 z-10 font-playful">
@@ -166,3 +191,4 @@ export default function LoveDodgerPage() {
     </div>
   );
 }
+
