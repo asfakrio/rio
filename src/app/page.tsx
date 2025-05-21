@@ -114,8 +114,9 @@ export default function LoveDodgerPage() {
         </div>
       )}
        <footer className="absolute bottom-4 text-center w-full text-xs text-muted-foreground/80 z-10 font-playful">
-        Crafted with love & a sprinkle of mischief!
+        Crafted with love & a sprinkle of mischief by Rio for Khushi!
       </footer>
     </div>
   );
 }
+
