@@ -3,36 +3,49 @@
 @tailwind utilities;
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif; /* Use font variable */
+  transition: background 0.5s ease-in-out;
 }
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
+    --background: 340 76% 86%; /* Light Pink #F8BBD0 */
+    --foreground: 340 60% 30%; /* Darker pink for text */
+
+    --card: 340 80% 90%; /* Lighter Pink for cards */
+    --card-foreground: 340 60% 30%;
+
+    --popover: 340 80% 90%;
+    --popover-foreground: 340 60% 30%;
+
+    --primary: 340 82% 52%; /* Passionate Pink #E91E63 */
+    --primary-foreground: 0 0% 100%; /* White */
+
+    --secondary: 288 30% 75%; /* Lighter Lavender for secondary buttons */
+    --secondary-foreground: 288 60% 25%; /* Darker Lavender text */
+
+    --muted: 340 60% 92%; /* Very light pink */
+    --muted-foreground: 340 40% 55%; /* Muted pink text */
+
+    --accent: 288 44% 59%; /* Gentle Lavender #BA68C8 */
+    --accent-foreground: 0 0% 100%; /* White */
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
+
+    --border: 340 60% 75%; /* Pinkish border */
+    --input: 340 60% 90%; /* Light pink input background */
+    --ring: 288 44% 65%; /* Brighter Lavender for ring */
+
+    --radius: 0.5rem;
+
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
+
+    /* Sidebar specific, keep them or adapt if sidebar is used. For this app, not critical. */
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -42,31 +55,42 @@ body {
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+    --background: 288 20% 15%; /* Dark Purple/Pink */
+    --foreground: 340 70% 85%; /* Light Pink text */
+
+    --card: 288 20% 20%;
+    --card-foreground: 340 70% 85%;
+
+    --popover: 288 20% 10%;
+    --popover-foreground: 340 70% 85%;
+
+    --primary: 340 82% 62%; /* Brighter Passionate Pink */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 288 44% 45%; /* Darker Lavender */
+    --secondary-foreground: 0 0% 90%;
+
+    --muted: 288 15% 25%;
+    --muted-foreground: 340 50% 70%;
+
+    --accent: 288 44% 69%; /* Brighter Lavender */
+    --accent-foreground: 0 0% 10%;
+
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
+
+    --border: 288 20% 30%;
+    --input: 288 20% 28%;
+    --ring: 288 44% 75%;
+
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -85,4 +109,36 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+  body.celebration-bg {
+    /* #ffdde1, #ee9ca7 */
+    background: radial-gradient(circle, hsl(348, 100%, 94%), hsl(350, 65%, 77%));
+  }
+  .dark body.celebration-bg {
+     /* Darker romantic gradient */
+    background: radial-gradient(circle, hsl(340, 50%, 30%), hsl(288, 40%, 20%));
+  }
+}
+
+.font-playful {
+  font-family: 'Comic Sans MS', 'Brush Script MT', cursive, sans-serif;
+}
+
+@keyframes floatHeartsUp {
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) scale(1.5) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.heart-particle {
+  position: absolute;
+  bottom: -50px; /* Start below screen */
+  animation-name: floatHeartsUp;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  pointer-events: none; /* Ensure they don't interfere with clicks */
 }
