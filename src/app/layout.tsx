@@ -1,3 +1,4 @@
+
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -9,8 +10,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Love Dodger - Will you be mine?',
-  description: 'A playful game of love and digital affection. Can you win their heart?',
+  title: 'Khushi & Rio - A Love Game',
+  description: 'A playful game for Khushi and Rio. Will Khushi say yes?',
 };
 
 export default function RootLayout({

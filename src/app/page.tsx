@@ -3,8 +3,6 @@
 
 import React, { useState, useEffect, useRef, MouseEvent } from 'react';
 import { Button } from '@/components/ui/button';
-// import { Loader2 } from 'lucide-react'; // Removed Loader2
-// import { generateAffirmation } from '@/ai/flows/personalized-affirmation'; // Removed generateAffirmation
 import FloatingHearts from '@/components/floating-hearts';
 
 const yesButtonTexts = ["Yes 💖", "Really? 🥰", "You sure? 😍", "Go on... 😘", "Absolutely! 🎉"];
@@ -15,7 +13,6 @@ export default function LoveDodgerPage() {
   const [isYesClicked, setIsYesClicked] = useState(false);
   const [noButtonPosition, setNoButtonPosition] = useState<{ top: string; left: string } | null>(null);
   const [noButtonIsDodging, setNoButtonIsDodging] = useState(false);
-  // Removed affirmation, isLoadingAffirmation, and error states
   
   const [currentYesTextIndex, setCurrentYesTextIndex] = useState(0);
   const [currentNoTextIndex, setCurrentNoTextIndex] = useState(0);
@@ -57,10 +54,9 @@ export default function LoveDodgerPage() {
     setCurrentYesTextIndex((prevIndex) => (prevIndex + 1) % yesButtonTexts.length);
   };
 
-  const handleYesButtonClick = () => { // No longer async
+  const handleYesButtonClick = () => {
     setShowInitialElements(false);
     setIsYesClicked(true);
-    // Removed affirmation generation logic
   };
   
   const noButtonStyle: React.CSSProperties = noButtonIsDodging && noButtonPosition
@@ -82,7 +78,7 @@ export default function LoveDodgerPage() {
       {showInitialElements && (
         <>
           <h1 className="text-4xl md:text-5xl font-bold mb-8 font-playful text-primary animate-pulse">
-            Do you love me? 🥺
+            Khushi, do you love Rio? 🥺
           </h1>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
             <Button
@@ -112,10 +108,9 @@ export default function LoveDodgerPage() {
 
       {isYesClicked && (
         <div className="mt-10 p-6 bg-card/90 backdrop-blur-sm rounded-xl shadow-2xl max-w-md z-10">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 font-playful text-accent animate-bounce"> {/* Added animate-bounce */}
-            🎉 {yesButtonTexts[yesButtonTexts.length -1]} Yaaay!!! ✨
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 font-playful text-accent animate-bounce">
+            🎉 Khushi loves Rio!!! ❤️ ✨
           </h2>
-          {/* Removed loading, affirmation, and error display sections */}
         </div>
       )}
        <footer className="absolute bottom-4 text-center w-full text-xs text-muted-foreground/80 z-10 font-playful">
