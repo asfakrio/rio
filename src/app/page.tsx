@@ -38,15 +38,31 @@ export default function LoveDodgerPage() {
 
   const noButtonRef = useRef<HTMLButtonElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     if (isYesClicked) {
       document.body.classList.add('celebration-bg');
+      if (audioRef.current) {
+        // Optional: You could change the music or stop it here
+        // For now, we'll let it continue playing
+      }
     }
     return () => {
       document.body.classList.remove('celebration-bg');
     };
   }, [isYesClicked]);
+
+  // Attempt to play audio after a user interaction (e.g. component mount in a client component)
+  // Browsers might block autoplay without prior user interaction on the page.
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.play().catch(error => {
+        console.log("Audio autoplay was prevented:", error);
+        // You might want to show a play button if autoplay is prevented.
+      });
+    }
+  }, []);
 
   const handleNoButtonAction = (event: MouseEvent<HTMLButtonElement>) => {
     if (!noButtonIsDodging) {
@@ -92,6 +108,8 @@ export default function LoveDodgerPage() {
 
   return (
     <div ref={containerRef} className="flex flex-col items-center justify-center min-h-screen p-4 text-center relative overflow-hidden">
+      <audio ref={audioRef} src="/music/your-song.mp3" loop controls className="absolute top-4 left-4 z-50 opacity-50 hover:opacity-100 transition-opacity"/>
+      
       {isYesClicked && <FloatingHearts />}
 
       {showInitialElements && (
