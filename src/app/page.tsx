@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, MouseEvent } from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import FloatingHearts from '@/components/floating-hearts';
 
@@ -23,6 +24,8 @@ const noButtonTexts = [
   "Can't touch this! 🕺",
   "Way too easy! 😎"
 ];
+
+const celebratoryGifUrl = "https://media1.tenor.com/m/Dp9JlqQDuHUAAAAd/pentol-stiker.gif";
 
 export default function LoveDodgerPage() {
   const [showInitialElements, setShowInitialElements] = useState(true);
@@ -123,10 +126,20 @@ export default function LoveDodgerPage() {
       )}
 
       {isYesClicked && (
-        <div className="mt-10 p-6 bg-card/90 backdrop-blur-sm rounded-xl shadow-2xl max-w-md z-10">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 font-playful text-accent animate-bounce">
+        <div className="flex flex-col items-center justify-center mt-10 p-6 bg-card/80 backdrop-blur-sm rounded-xl shadow-2xl max-w-md z-10">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-playful text-accent animate-bounce">
             🎉 Khushi loves Rio!!! ❤️ ✨
           </h2>
+          <div className="mt-4">
+            <Image
+              src={celebratoryGifUrl}
+              alt="Celebratory GIF - Pentol Sticker"
+              width={250}
+              height={250}
+              unoptimized={true} 
+              className="rounded-lg shadow-lg"
+            />
+          </div>
         </div>
       )}
        <footer className="absolute bottom-4 text-center w-full text-xs text-muted-foreground/80 z-10 font-playful">
