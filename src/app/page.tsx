@@ -37,48 +37,17 @@ export default function LoveDodgerPage() {
   const [currentYesTextIndex, setCurrentYesTextIndex] = useState(0);
   const [currentNoTextIndex, setCurrentNoTextIndex] = useState(0);
 
-  const [affirmation, setAffirmation] = useState<string | null>(null);
-  const [isLoadingAffirmation, setIsLoadingAffirmation] = useState(false);
-  const [affirmationError, setAffirmationError] = useState<string | null>(null);
-
-
   const noButtonRef = useRef<HTMLButtonElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     if (isYesClicked) {
       document.body.classList.add('celebration-bg');
-      setIsLoadingAffirmation(true);
-      setAffirmationError(null);
-      generateAffirmation({ userName: 'Khushi' })
-        .then(response => {
-          setAffirmation(response.affirmationMessage);
-        })
-        .catch(error => {
-          console.error("Error generating affirmation:", error);
-          setAffirmationError("Couldn't get a special message, but my love is clear! ❤️");
-        })
-        .finally(() => {
-          setIsLoadingAffirmation(false);
-        });
-      
-      if (audioRef.current) {
-        // Optional: You could change the music or stop it here
-      }
     }
     return () => {
       document.body.classList.remove('celebration-bg');
     };
   }, [isYesClicked]);
-
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.play().catch(error => {
-        console.log("Audio autoplay was prevented:", error);
-      });
-    }
-  }, []);
 
   const handleNoButtonAction = (event: MouseEvent<HTMLButtonElement>) => {
     if (!noButtonIsDodging) {
@@ -124,7 +93,6 @@ export default function LoveDodgerPage() {
 
   return (
     <div ref={containerRef} className="flex flex-col items-center justify-center min-h-screen p-4 text-center relative overflow-hidden">
-      <audio ref={audioRef} src="/music/perfect-ed-sheeran.mp3" loop autoPlay className="absolute top-4 left-4 z-50 opacity-50 hover:opacity-100 transition-opacity"/>
       
       {isYesClicked && <FloatingHearts />}
 
@@ -174,15 +142,6 @@ export default function LoveDodgerPage() {
               className="rounded-lg shadow-lg"
             />
           </div>
-          {isLoadingAffirmation && (
-            <p className="mt-4 text-lg font-playful text-muted-foreground">💖 Getting a special message for you... ✨</p>
-          )}
-          {affirmationError && (
-             <p className="mt-4 text-lg font-playful text-destructive">{affirmationError}</p>
-          )}
-          {affirmation && !isLoadingAffirmation && !affirmationError && (
-            <p className="mt-4 text-lg font-playful text-foreground leading-relaxed">{affirmation}</p>
-          )}
         </div>
       )}
        <footer className="absolute bottom-4 text-center w-full text-xs text-muted-foreground/80 z-10 font-playful">
@@ -191,4 +150,3 @@ export default function LoveDodgerPage() {
     </div>
   );
 }
-
