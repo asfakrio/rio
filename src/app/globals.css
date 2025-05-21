@@ -137,6 +137,8 @@ body {
 .heart-particle {
   position: absolute;
   bottom: -50px; /* Start below screen */
+  color: hsl(var(--primary)); /* Use primary color for hearts */
+  background-color: transparent; /* Ensure no background on the particle itself */
   animation-name: floatHeartsUp;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
