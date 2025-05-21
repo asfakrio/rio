@@ -6,7 +6,23 @@ import { Button } from '@/components/ui/button';
 import FloatingHearts from '@/components/floating-hearts';
 
 const yesButtonTexts = ["Yes 💖", "Really? 🥰", "You sure? 😍", "Go on... 😘", "Absolutely! 🎉"];
-const noButtonTexts = ["No 😢", "Not a chance! 🤪", "Try again! 🤣", "Catch me! 😉", "Nope! 😂"];
+const noButtonTexts = [
+  "No 😢", 
+  "Not a chance! 🤪", 
+  "Try again! 🤣", 
+  "Catch me! 😉", 
+  "Nope! 😂",
+  "Are you kidding? 🤨",
+  "Dream on! 😴",
+  "Too slow! 💨",
+  "Missed me! 😜",
+  "In your dreams! 💭",
+  "Seriously? 🙄",
+  "As if! 💅",
+  "Zip Zap Zoom! ⚡️",
+  "Can't touch this! 🕺",
+  "Way too easy! 😎"
+];
 
 export default function LoveDodgerPage() {
   const [showInitialElements, setShowInitialElements] = useState(true);
@@ -119,4 +135,3 @@ export default function LoveDodgerPage() {
     </div>
   );
 }
-
