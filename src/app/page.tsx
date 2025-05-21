@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect, useRef, MouseEvent } from 'react';
@@ -5,6 +6,9 @@ import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import { generateAffirmation } from '@/ai/flows/personalized-affirmation';
 import FloatingHearts from '@/components/floating-hearts';
+
+const yesButtonTexts = ["Yes 💖", "Really? 🥰", "You sure? 😍", "Go on... 😘", "Absolutely! 🎉"];
+const noButtonTexts = ["No 😢", "Not a chance! 🤪", "Try again! 🤣", "Catch me! 😉", "Nope! 😂"];
 
 export default function LoveDodgerPage() {
   const [showInitialElements, setShowInitialElements] = useState(true);
@@ -14,10 +18,12 @@ export default function LoveDodgerPage() {
   const [affirmation, setAffirmation] = useState<string | null>(null);
   const [isLoadingAffirmation, setIsLoadingAffirmation] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  
+  const [currentYesTextIndex, setCurrentYesTextIndex] = useState(0);
+  const [currentNoTextIndex, setCurrentNoTextIndex] = useState(0);
 
-  // Refs for elements if needed, e.g., for complex positioning logic or focusing
   const noButtonRef = useRef<HTMLButtonElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null); // To contain button movement if not viewport-wide
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isYesClicked) {
@@ -32,9 +38,10 @@ export default function LoveDodgerPage() {
     if (!noButtonIsDodging) {
       setNoButtonIsDodging(true); 
     }
+    setCurrentNoTextIndex((prevIndex) => (prevIndex + 1) % noButtonTexts.length);
 
     const button = event.currentTarget;
-    if (button && typeof window !== 'undefined') { // Ensure window is defined (client-side)
+    if (button && typeof window !== 'undefined') {
       const buttonWidth = button.offsetWidth;
       const buttonHeight = button.offsetHeight;
       
@@ -48,7 +55,13 @@ export default function LoveDodgerPage() {
     }
   };
 
+  const handleYesButtonMouseEnter = () => {
+    setCurrentYesTextIndex((prevIndex) => (prevIndex + 1) % yesButtonTexts.length);
+  };
+
   const handleYesButtonClick = async () => {
+    // Optionally set a specific "Yes" text if needed before hiding, though it disappears quickly.
+    // setCurrentYesTextIndex(yesButtonTexts.length - 1); 
     setShowInitialElements(false);
     setIsYesClicked(true);
     setIsLoadingAffirmation(true);
@@ -89,23 +102,24 @@ export default function LoveDodgerPage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
             <Button
               onClick={handleYesButtonClick}
+              onMouseEnter={handleYesButtonMouseEnter}
               size="lg"
-              className="px-8 py-4 text-xl md:text-2xl font-playful transform hover:scale-110 transition-transform duration-200 shadow-lg hover:shadow-xl"
+              className="px-8 py-4 text-xl md:text-2xl font-playful transform hover:scale-150 active:scale-125 transition-transform duration-700 ease-out shadow-lg hover:shadow-xl"
               aria-label="Yes, I love you"
             >
-              Yes 💖
+              {yesButtonTexts[currentYesTextIndex]}
             </Button>
             <Button
               ref={noButtonRef}
               onMouseEnter={handleNoButtonAction}
-              onClick={handleNoButtonAction} // Also trigger move on click attempt
+              onClick={handleNoButtonAction} 
               size="lg"
-              variant="secondary" // Uses the lavender theme for secondary
+              variant="secondary" 
               className="px-8 py-4 text-xl md:text-2xl font-playful shadow-md hover:shadow-lg"
               style={noButtonStyle}
               aria-label="No, I do not love you"
             >
-              No 😢
+              {noButtonTexts[currentNoTextIndex]}
             </Button>
           </div>
         </>
@@ -114,7 +128,7 @@ export default function LoveDodgerPage() {
       {isYesClicked && (
         <div className="mt-10 p-6 bg-card/90 backdrop-blur-sm rounded-xl shadow-2xl max-w-md z-10">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 font-playful text-accent">
-            🎉 Yaaay!!! ✨
+            🎉 {yesButtonTexts[yesButtonTexts.length -1]} Yaaay!!! ✨
           </h2>
           {isLoadingAffirmation && (
             <div className="flex flex-col items-center text-lg text-foreground">
@@ -140,3 +154,4 @@ export default function LoveDodgerPage() {
     </div>
   );
 }
+
