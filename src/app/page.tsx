@@ -38,13 +38,20 @@ export default function LoveDodgerPage() {
 
   const noButtonRef = useRef<HTMLButtonElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     if (isYesClicked) {
       document.body.classList.add('celebration-bg');
+      if (audioRef.current) {
+        audioRef.current.play().catch(error => console.log("Autoplay prevented: ", error));
+      }
     }
     return () => {
       document.body.classList.remove('celebration-bg');
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
     };
   }, [isYesClicked]);
 
@@ -94,6 +101,18 @@ export default function LoveDodgerPage() {
     <div ref={containerRef} className="flex flex-col items-center justify-center min-h-screen p-4 text-center relative overflow-hidden">
       
       {isYesClicked && <FloatingHearts />}
+
+      {/* 
+        Music Player:
+        1. Create a 'music' folder in your 'public' directory.
+        2. Add your music file (e.g., 'your-song-name.mp3') to 'public/music/'.
+        3. Update the src below to '/music/your-song-name.mp3'.
+        The audio will autoplay and loop when 'Yes' is clicked.
+      */}
+      <audio ref={audioRef} loop>
+        <source src="/music/your-song-name.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
 
       {showInitialElements && (
         <>
