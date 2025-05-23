@@ -5,7 +5,7 @@ import React, { useState, useEffect, useRef, MouseEvent } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import FloatingHearts from '@/components/floating-hearts';
-import { generateAffirmation } from '@/ai/flows/personalized-affirmation';
+// import { generateAffirmation } from '@/ai/flows/personalized-affirmation'; // Removed as per previous request
 
 const yesButtonTexts = ["Yes 💖", "Really? 🥰", "You sure? 😍", "Go on... 😘", "Absolutely! 🎉"];
 const noButtonTexts = [
@@ -130,7 +130,7 @@ export default function LoveDodgerPage() {
       {isYesClicked && (
         <div className="flex flex-col items-center justify-center mt-10 p-6 bg-card/80 backdrop-blur-sm rounded-xl shadow-2xl max-w-md z-10">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 font-playful text-accent animate-bounce">
-            🎉 Khushi loves Rio!!! ❤️ ✨
+            Yeeeaaaashh! Enjoying this amazing feeling! 🎉💖✨
           </h2>
           <div className="mt-4">
             <Image
