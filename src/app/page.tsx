@@ -105,10 +105,11 @@ export default function LoveDodgerPage() {
 
       {/* 
         Music Player:
-        1. Create a 'music' folder in your 'public' directory.
-        2. Add your music file (e.g., 'your-song-name.mp3') to 'public/music/'.
-        3. Update the src below to '/music/your-song-name.mp3'.
-        The audio will autoplay and loop when 'Yes' is clicked.
+        1. Create a 'music' folder in your 'public' directory (e.g., public/music/).
+        2. Add your music file (e.g., 'your-song-name.mp3') to this 'public/music/' folder.
+        3. Update the src in the <source> tag below to match your music file's name 
+           (e.g., change from '/music/your-song-name.mp3' to '/music/your-actual-song.mp3').
+        The audio will autoplay and loop when 'Yes' is clicked, playing in the background.
       */}
       <audio ref={audioRef} loop className="hidden">
         <source src="/music/your-song-name.mp3" type="audio/mpeg" />
