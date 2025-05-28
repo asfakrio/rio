@@ -104,14 +104,16 @@ export default function LoveDodgerPage() {
       {isYesClicked && <FloatingHearts />}
 
       {/* 
-        Music Player:
-        1. Create a 'music' folder in your 'public' directory (e.g., public/music/).
-        2. Add your music file (e.g., 'your-song-name.mp3') to this 'public/music/' folder.
-        3. Update the src in the <source> tag below to match your music file's name 
-           (e.g., change from '/music/your-song-name.mp3' to '/music/your-actual-song.mp3').
-        The audio will autoplay and loop when 'Yes' is clicked, playing in the background.
+        Music Player Instructions:
+        1. Create a 'music' folder in your 'public' directory. 
+           (e.g., your-project-folder/public/music/).
+        2. Add your music file (e.g., 'our-song.mp3') to this 'public/music/' folder.
+        3. Update the 'src' in the <source> tag below to match your music file's name.
+           For example, change from '/music/your-song-name.mp3' to '/music/our-song.mp3'.
+        The audio will autoplay and loop in the background when 'Yes' is clicked.
       */}
       <audio ref={audioRef} loop className="hidden">
+        {/* Make sure to update 'your-song-name.mp3' to your actual song file name! */}
         <source src="/music/your-song-name.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
