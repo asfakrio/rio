@@ -113,7 +113,7 @@ export default function LoveDodgerPage() {
       */}
       <audio ref={audioRef} loop className="hidden">
         {/* Ensure 'music.mp3' is in your 'public/audio/' folder! */}
-        <source src="/audio/music.mp3" type="audio/mpeg" />
+        <source src="/audio/love-music.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
 
