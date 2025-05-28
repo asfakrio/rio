@@ -105,16 +105,17 @@ export default function LoveDodgerPage() {
 
       {/* 
         Music Player Instructions:
-        1. Create a 'music' folder in your 'public' directory. 
-           (e.g., your-project-folder/public/music/).
-        2. Add your music file (e.g., 'our-song.mp3') to this 'public/music/' folder.
+        1. Create an 'audio' folder in your 'public' directory. 
+           (e.g., your-project-folder/public/audio/).
+        2. Add your music file (e.g., 'background-music.mp3') to this 'public/audio/' folder.
         3. Update the 'src' in the <source> tag below to match your music file's name.
-           For example, change from '/music/your-song-name.mp3' to '/music/our-song.mp3'.
+           For example, change from '/audio/background-music.mp3' to '/audio/our-song.mp3'.
         The audio will autoplay and loop in the background when 'Yes' is clicked.
+        There will be no visible player controls.
       */}
       <audio ref={audioRef} loop className="hidden">
-        {/* Make sure to update 'your-song-name.mp3' to your actual song file name! */}
-        <source src="/music/your-song-name.mp3" type="audio/mpeg" />
+        {/* Make sure to update 'background-music.mp3' to your actual song file name if it's different! */}
+        <source src="/audio/background-music.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
 
