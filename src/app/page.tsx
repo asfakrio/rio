@@ -51,6 +51,7 @@ export default function LoveDodgerPage() {
       document.body.classList.remove('celebration-bg');
       if (audioRef.current) {
         audioRef.current.pause();
+        audioRef.current.currentTime = 0; // Reset audio to beginning
       }
     };
   }, [isYesClicked]);
@@ -108,9 +109,8 @@ export default function LoveDodgerPage() {
         2. Add your music file (e.g., 'your-song-name.mp3') to 'public/music/'.
         3. Update the src below to '/music/your-song-name.mp3'.
         The audio will autoplay and loop when 'Yes' is clicked.
-        The 'controls' attribute makes the player visible.
       */}
-      <audio ref={audioRef} loop controls className={isYesClicked ? 'mt-4' : 'hidden'}>
+      <audio ref={audioRef} loop className="hidden">
         <source src="/music/your-song-name.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
